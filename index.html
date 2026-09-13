@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bingwa — The Trips Organizer | Tanzania Safaris &amp; Escapes</title>
+<meta name="description" content="Bingwa, The Trips Organizer — hand-planned safaris, Zanzibar escapes and Kilimanjaro treks across Tanzania.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#F1E7D3;
+    --sand-deep:#E4D5B4;
+    --night:#152018;
+    --night-soft:#1E2E24;
+    --gold:#C48A3C;
+    --clay:#8A3B2C;
+    --ink:#211C14;
+    --cream-text:#F6EFE0;
+    --line: rgba(33,28,20,0.15);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    color:var(--ink);
+    background:var(--sand);
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    color:inherit;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 20px;}}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background: linear-gradient(to bottom, rgba(21,32,24,0.55), transparent);
+    padding:22px 0;
+    transition: background .3s ease, padding .3s ease;
+  }
+  header.scrolled{
+    background:var(--night);
+    padding:14px 0;
+    box-shadow:0 2px 18px rgba(0,0,0,.25);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between;}
+  .logo{
+    font-family:'Fraunces', serif;
+    font-size:1.35rem;
+    color:var(--cream-text);
+    font-weight:500;
+  }
+  .logo span{ color:var(--gold); font-style:italic; font-weight:400;}
+  .nav-links{display:flex; gap:30px; align-items:center;}
+  .nav-links a{
+    color:var(--cream-text);
+    font-size:0.92rem;
+    opacity:0.88;
+  }
+  .nav-links a:hover{opacity:1;}
+  .nav-socials{display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
+  .nav-socials a svg{width:17px; height:17px; fill:var(--cream-text); opacity:.85; transition:opacity .2s, transform .2s;}
+  .nav-socials a:hover svg{opacity:1; transform:translateY(-2px);}
+  .lang-switch{
+    display:flex; align-items:center; gap:2px;
+    border:1px solid rgba(246,239,224,0.35); border-radius:999px;
+    padding:3px; margin-left:8px;
+  }
+  .lang-btn{
+    background:none; border:none; cursor:pointer;
+    color:rgba(246,239,224,0.75); font-family:'Work Sans', sans-serif;
+    font-size:0.76rem; font-weight:500; letter-spacing:0.02em;
+    padding:5px 11px; border-radius:999px; transition:background .2s ease, color .2s ease;
+  }
+  .lang-btn.active{ background:var(--gold); color:var(--night); }
+  .lang-btn:not(.active):hover{ color:var(--cream-text); }
+  @media(max-width:860px){ .lang-switch{ margin-left:0; margin-top:6px; } }
+  .menu-btn{display:none; background:none; border:none; cursor:pointer;}
+  .menu-btn svg{width:24px;height:24px; fill:var(--cream-text);}
+
+  @media(max-width:860px){
+    .nav-links{
+      position:fixed; inset:0 0 0 auto; width:78%; max-width:320px;
+      background:var(--night); flex-direction:column; align-items:flex-start;
+      padding:100px 32px 40px; gap:26px; transform:translateX(100%);
+      transition:transform .35s ease; height:100vh;
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-socials{margin-top:10px;}
+    .menu-btn{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; height:100vh; min-height:640px;
+    display:flex; align-items:flex-end;
+    color:var(--cream-text);
+    overflow:hidden;
+  }
+  .hero-media{position:absolute; inset:0; z-index:0;}
+  .hero-media img{width:100%; height:100%; object-fit:cover;}
+  .hero-media::after{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(21,32,24,0.35) 0%, rgba(21,32,24,0.15) 35%, rgba(15,20,15,0.85) 100%);
+  }
+  .hero-content{
+    position:relative; z-index:1;
+    padding-bottom:90px;
+    width:100%;
+  }
+  .hero-eyebrow{
+    font-size:0.95rem; letter-spacing:0.02em;
+    color:var(--gold); font-style:italic; font-family:'Fraunces',serif;
+    margin-bottom:18px;
+    opacity:0; transform:translateY(14px);
+    animation:riseIn .9s ease forwards .2s;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 6.4vw, 5.4rem);
+    line-height:0.98;
+    max-width:820px;
+    opacity:0; transform:translateY(24px);
+    animation:riseIn 1s ease forwards .4s;
+  }
+  .hero-sub{
+    margin-top:26px; max-width:460px;
+    font-size:1.05rem; color:rgba(246,239,224,0.85); font-weight:300;
+    opacity:0; transform:translateY(18px);
+    animation:riseIn 1s ease forwards .65s;
+  }
+  .hero-actions{
+    margin-top:38px; display:flex; gap:16px; flex-wrap:wrap; align-items:center;
+    opacity:0; transform:translateY(18px);
+    animation:riseIn 1s ease forwards .85s;
+  }
+  @keyframes riseIn{ to{opacity:1; transform:translateY(0);} }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 28px; border-radius:2px;
+    font-size:0.92rem; font-weight:500; letter-spacing:0.01em;
+    border:1px solid transparent; cursor:pointer;
+    transition:transform .25s ease, background .25s ease, border-color .25s ease;
+  }
+  .btn-primary{ background:var(--gold); color:var(--night); }
+  .btn-primary:hover{ transform:translateY(-2px); background:#d59a4c; }
+  .btn-ghost{ border-color:rgba(246,239,224,0.5); color:var(--cream-text); }
+  .btn-ghost:hover{ border-color:var(--cream-text); transform:translateY(-2px); }
+  .btn svg{width:16px; height:16px; fill:currentColor;}
+
+  .hero-scroll{
+    position:absolute; right:32px; bottom:34px; z-index:1;
+    writing-mode:vertical-rl; color:rgba(246,239,224,0.65);
+    font-size:0.75rem; letter-spacing:0.08em; display:flex; align-items:center; gap:10px;
+  }
+  .hero-scroll::after{content:''; width:1px; height:46px; background:rgba(246,239,224,0.4);}
+  @media(max-width:640px){.hero-scroll{display:none;}}
+
+  .sound-toggle{
+    position:absolute; left:32px; bottom:34px; z-index:2;
+    width:46px; height:46px; border-radius:50%;
+    background:rgba(21,32,24,0.45); border:1px solid rgba(246,239,224,0.4);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; backdrop-filter:blur(2px);
+    transition:background .2s ease, transform .2s ease;
+  }
+  .sound-toggle:hover{ background:rgba(21,32,24,0.65); transform:translateY(-2px); }
+  .sound-toggle svg{ width:20px; height:20px; fill:var(--cream-text); }
+  .sound-toggle .icon-off{ display:none; }
+  .sound-toggle[aria-pressed="false"] .icon-on{ display:none; }
+  .sound-toggle[aria-pressed="false"] .icon-off{ display:block; }
+  @media(max-width:640px){ .sound-toggle{ left:20px; bottom:20px; width:42px; height:42px; } }
+
+  /* ---------- SECTION LABELS ---------- */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:24px; margin-bottom:56px; flex-wrap:wrap;
+    border-bottom:1px solid var(--line); padding-bottom:26px;
+  }
+  .section-head h2{ font-size:clamp(1.9rem, 3.4vw, 2.7rem); }
+  .section-head p{ max-width:340px; font-size:0.98rem; color:#5a5240; }
+  .section-num{ font-family:'Fraunces',serif; font-style:italic; color:var(--gold); font-size:1rem; }
+
+  section{padding:120px 0;}
+  @media(max-width:640px){ section{padding:80px 0;} }
+
+  /* ---------- ABOUT ---------- */
+  .about{ background:var(--sand); }
+  .about-grid{
+    display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:center;
+  }
+  .about-media{ position:relative; }
+  .about-media img{ width:100%; height:520px; object-fit:cover; }
+  .about-media .frame{
+    position:absolute; top:22px; left:-22px; right:22px; bottom:-22px;
+    border:1px solid var(--gold); z-index:-1;
+  }
+  .about-copy .kicker{
+    font-family:'Fraunces',serif; font-style:italic; color:var(--clay); font-size:1.05rem; margin-bottom:16px;
+  }
+  .about-copy h2{ font-size:clamp(1.8rem, 3vw, 2.5rem); margin-bottom:22px; max-width:480px;}
+  .about-copy p{ color:#4a4433; max-width:520px; margin-bottom:18px; font-size:1.02rem;}
+  .about-stats{ display:flex; gap:40px; margin-top:36px; flex-wrap:wrap; }
+  .about-stats div{ border-left:2px solid var(--gold); padding-left:16px; }
+  .about-stats strong{ display:block; font-family:'Fraunces',serif; font-size:1.9rem; }
+  .about-stats span{ font-size:0.82rem; color:#6b6350; }
+
+  @media(max-width:860px){
+    .about-grid{grid-template-columns:1fr; gap:40px;}
+    .about-media img{height:360px;}
+    .about-media .frame{display:none;}
+  }
+
+  /* ---------- SERVICES (alternating rows) ---------- */
+  .services{ background:var(--night); color:var(--cream-text); }
+  .services .section-head{ border-bottom-color:rgba(246,239,224,0.15); }
+  .services .section-head p{ color:rgba(246,239,224,0.65); }
+  .service-row{
+    display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;
+    padding:56px 0; border-bottom:1px solid rgba(246,239,224,0.12);
+  }
+  .service-row:last-child{ border-bottom:none; }
+  .service-row:nth-child(even) .service-media{ order:2; }
+  .service-media img{ width:100%; height:380px; object-fit:cover; }
+  .service-index{ font-family:'Fraunces',serif; font-style:italic; color:var(--gold); font-size:1rem; margin-bottom:14px; }
+  .service-copy h3{ font-size:clamp(1.6rem,2.6vw,2.15rem); margin-bottom:16px; }
+  .service-copy p{ color:rgba(246,239,224,0.72); max-width:460px; margin-bottom:22px; }
+  .service-tags{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px;}
+  .service-tags span{
+    font-size:0.78rem; border:1px solid rgba(246,239,224,0.3); padding:6px 14px; border-radius:2px; color:rgba(246,239,224,0.8);
+  }
+  .service-link{ font-size:0.92rem; color:var(--gold); display:inline-flex; align-items:center; gap:8px; }
+  .service-link svg{ width:14px; height:14px; fill:currentColor; transition:transform .2s; }
+  .service-link:hover svg{ transform:translateX(4px); }
+
+  @media(max-width:860px){
+    .service-row{grid-template-columns:1fr; gap:26px; padding:40px 0;}
+    .service-row:nth-child(even) .service-media{ order:0; }
+    .service-media img{height:280px;}
+  }
+
+  /* ---------- GALLERY ---------- */
+  .gallery{ background:var(--sand); }
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); grid-auto-rows:150px; gap:14px;
+  }
+  .gallery-grid img{ width:100%; height:100%; object-fit:cover; filter:saturate(1.03); transition:transform .5s ease; }
+  .gallery-grid a{ overflow:hidden; display:block; background:var(--sand-deep); }
+  .gallery-grid a:hover img{ transform:scale(1.06); }
+  .gallery-grid img.img-missing{
+    display:flex; align-items:center; justify-content:center;
+    color:#6b6350; font-family:'Work Sans',sans-serif; font-size:0.78rem;
+    text-align:center; padding:12px;
+  }
+  .g1{grid-column:span 2; grid-row:span 2;}
+  .g2{grid-column:span 2; grid-row:span 1;}
+  .g3{grid-column:span 1; grid-row:span 1;}
+  .g4{grid-column:span 1; grid-row:span 2;}
+  .g5{grid-column:span 2; grid-row:span 1;}
+  .g6{grid-column:span 2; grid-row:span 1;}
+  @media(max-width:760px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:130px;}
+    .g1,.g2,.g4,.g5,.g6{grid-column:span 2; grid-row:span 1;}
+  }
+
+  /* ---------- VIVUTIO VYA UTALII ---------- */
+  .vivutio{ background:var(--night); color:var(--cream-text); }
+  .vivutio .section-head{ border-bottom-color:rgba(246,239,224,0.15); }
+  .vivutio .section-head p{ color:rgba(246,239,224,0.65); }
+  .vivutio-intro{ max-width:760px; color:rgba(246,239,224,0.75); margin:-30px 0 46px; font-size:1.02rem; }
+  .vivutio-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
+  }
+  @media(max-width:960px){ .vivutio-grid{grid-template-columns:repeat(2, 1fr);} }
+  @media(max-width:560px){ .vivutio-grid{grid-template-columns:1fr;} }
+  .viv-card{
+    position:relative; border-radius:4px; overflow:hidden;
+    background:var(--night-soft); border:1px solid rgba(246,239,224,0.1);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .viv-card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(0,0,0,.35); }
+  .viv-media{ position:relative; overflow:hidden; height:190px; background:var(--sand-deep); }
+  .viv-media img{
+    width:100%; height:100%; object-fit:cover;
+    transition:transform .6s cubic-bezier(.2,.7,.3,1), filter .6s ease;
+  }
+  .viv-card:hover .viv-media img{ transform:scale(1.18); filter:brightness(1.05); }
+  .viv-body{ padding:18px 18px 20px; }
+  .viv-body h3{ font-size:1.08rem; margin-bottom:6px; }
+  .viv-body p{ font-size:0.86rem; color:rgba(246,239,224,0.68); line-height:1.5; }
+  .viv-tag{ font-size:0.72rem; color:var(--gold); font-family:'Fraunces',serif; font-style:italic; margin-bottom:4px; display:block; }
+  .viv-pick-note{
+    margin-top:44px; padding:26px 28px; border:1px solid rgba(196,138,60,0.4);
+    background:rgba(196,138,60,0.08); border-radius:4px; max-width:820px;
+  }
+  .viv-pick-note strong{ color:var(--gold); }
+  .viv-areas{
+    margin-top:50px; padding-top:36px; border-top:1px solid rgba(246,239,224,0.15);
+  }
+  .viv-areas h4{ font-family:'Fraunces',serif; font-style:italic; font-weight:500; color:var(--gold); font-size:1.05rem; margin-bottom:18px; }
+  .viv-pills{ display:flex; flex-wrap:wrap; gap:10px; }
+  .viv-pills span{
+    font-size:0.82rem; padding:8px 16px; border:1px solid rgba(246,239,224,0.25);
+    border-radius:999px; color:rgba(246,239,224,0.85);
+  }
+
+  /* ---------- CONTACT / FOLLOW ---------- */
+  .contact{
+    background:var(--night-soft); color:var(--cream-text); text-align:center;
+    position:relative;
+  }
+  .contact h2{ font-size:clamp(2.1rem,5vw,3.6rem); max-width:760px; margin:0 auto 22px; }
+  .contact p{ color:rgba(246,239,224,0.7); max-width:480px; margin:0 auto 44px; }
+  .contact-actions{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:64px; }
+  .social-row{
+    display:flex; justify-content:center; gap:22px; flex-wrap:wrap;
+    padding-top:44px; border-top:1px solid rgba(246,239,224,0.15);
+  }
+  .social-pill{
+    display:flex; align-items:center; gap:10px;
+    padding:13px 22px; border:1px solid rgba(246,239,224,0.25); border-radius:2px;
+    font-size:0.88rem; transition:border-color .2s, transform .2s;
+    max-width:100%; word-break:break-word;
+  }
+  @media(max-width:480px){
+    .social-pill{ font-size:0.8rem; padding:12px 16px; }
+    footer .wrap span[style]{ flex-direction:column; gap:8px !important; }
+  }
+  .social-pill svg{ width:18px; height:18px; fill:var(--cream-text); }
+  .social-pill:hover{ border-color:var(--gold); transform:translateY(-3px); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--night); color:rgba(246,239,224,0.55);
+    padding:34px 0; font-size:0.82rem;
+  }
+  footer .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  footer a{ color:rgba(246,239,224,0.75); }
+
+  /* ---------- FLOATING WHATSAPP ---------- */
+  .float-wa{
+    position:fixed; right:24px; bottom:24px; z-index:60;
+    width:56px; height:56px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 22px rgba(0,0,0,.3);
+    transition:transform .25s ease;
+  }
+  .float-wa:hover{ transform:scale(1.08); }
+  .float-wa svg{ width:28px; height:28px; fill:#fff; }
+
+  @media(max-width:480px){
+    .hero{ min-height:560px; }
+    .hero-content{ padding-bottom:60px; }
+    .about-stats{ gap:24px; }
+    .about-stats strong{ font-size:1.5rem; }
+    .gallery-grid{ grid-template-columns:1fr; grid-auto-rows:220px; }
+    .g1,.g2,.g3,.g4,.g5,.g6{ grid-column:span 1; grid-row:span 1; }
+    .service-tags span{ font-size:0.72rem; padding:5px 10px; }
+    .btn{ padding:14px 22px; font-size:0.86rem; }
+    .float-wa{ right:16px; bottom:16px; width:50px; height:50px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo">Bingwa <span data-en="— the trips organizer" data-sw="— mpangaji wa safari">— the trips organizer</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about" data-en="About" data-sw="Kuhusu">About</a>
+        <a href="#services" data-en="Trips" data-sw="Safari">Trips</a>
+        <a href="#vivutio" data-en="Attractions" data-sw="Vivutio">Vivutio</a>
+        <a href="#gallery" data-en="Gallery" data-sw="Picha">Gallery</a>
+        <a href="#contact" data-en="Contact" data-sw="Wasiliana">Contact</a>
+        <div class="nav-socials">
+          <a href="https://www.instagram.com/bingwa.thetrips_organizer/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45 2.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.28 2 12 2zm0 1.8c-2.67 0-2.99.01-4.04.06-.87.04-1.34.18-1.65.3-.42.16-.71.35-1.02.66-.31.31-.5.6-.66 1.02-.12.31-.26.78-.3 1.65C4.28 9.01 4.27 9.33 4.27 12s.01 2.99.06 4.04c.04.87.18 1.34.3 1.65.16.42.35.71.66 1.02.31.31.6.5 1.02.66.31.12.78.26 1.65.3 1.05.05 1.37.06 4.04.06s2.99-.01 4.04-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.35 1.02-.66.31-.31.5-.6.66-1.02.12-.31.26-.78.3-1.65.05-1.05.06-1.37.06-4.04s-.01-2.99-.06-4.04c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.66-1.02 2.75 2.75 0 0 0-1.02-.66c-.31-.12-.78-.26-1.65-.3C14.99 3.81 14.67 3.8 12 3.8zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68zm5.34-1.98a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@bingwa.the.trip.o" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M16.6 5.82c-1-.87-1.6-2.13-1.6-3.5h-3.15v13.4a2.9 2.9 0 1 1-2.06-2.78V9.7a6.05 6.05 0 1 0 5.21 6v-6.4a7.8 7.8 0 0 0 4.4 1.36V7.5a4.85 4.85 0 0 1-2.8-1.68z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61578583855213" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M13.5 21v-8.1h2.72l.41-3.16h-3.13V7.72c0-.92.25-1.54 1.57-1.54h1.68V3.36C15.94 3.25 15 3.18 13.9 3.18c-2.53 0-4.26 1.54-4.26 4.37v2.4H6.9v3.15h2.74V21h3.86z"/></svg>
+          </a>
+          <a href="https://wa.me/255766967509" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.19.28-.73.92-.9 1.1-.16.19-.33.21-.6.07-.28-.14-1.18-.43-2.24-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 1-1 2.42 0 1.43 1.02 2.82 1.16 3.01.14.19 2 3.05 4.85 4.28.68.29 1.2.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.16-1.34-.07-.12-.26-.19-.54-.33zM12.02 2.2A9.8 9.8 0 0 0 2.2 12a9.7 9.7 0 0 0 1.34 4.95L2 22l5.2-1.5a9.8 9.8 0 0 0 4.82 1.27h.01A9.8 9.8 0 0 0 21.8 12 9.8 9.8 0 0 0 12.02 2.2zm5.7 15.5a8.13 8.13 0 0 1-5.7 2.37 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.9.9-3-.2-.31A8.15 8.15 0 1 1 17.72 17.7z"/></svg>
+          </a>
+          <a href="mailto:bingwathetriporganizer@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24"><path d="M2 5.5C2 4.67 2.67 4 3.5 4h17c.83 0 1.5.67 1.5 1.5v13c0 .83-.67 1.5-1.5 1.5h-17c-.83 0-1.5-.67-1.5-1.5v-13zm2.2.4 7.3 5.84c.29.23.71.23 1 0l7.3-5.84H4.2zM4 8.1V18h16V8.1l-7.06 5.65a2.5 2.5 0 0 1-3.12 0L4 8.1z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Language switch">
+        <button type="button" class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="lang-btn" data-lang="sw" aria-pressed="false">SW</button>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-media">
+    <img src="images/img-09.jpg" alt="Guide and climber celebrating sunrise at the crater rim on Kilimanjaro" loading="eager">
+  </div>
+  <audio id="heroBirdSound" src="images/forest_bird.mp3" loop preload="auto" autoplay></audio>
+  <button type="button" id="soundToggle" class="sound-toggle" aria-label="Toggle forest sound" data-en-aria="Toggle forest sound" data-sw-aria="Washa au zima sauti ya msituni" aria-pressed="false">
+    <svg class="icon-on" viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2c0-1.77-.77-3.29-2-4.32v8.64c1.23-1.03 2-2.55 2-4.32zM14.5 3.23v2.06c2.89 1.02 5 3.76 5 6.71s-2.11 5.69-5 6.71v2.06c4.01-1.06 7-4.62 7-8.77s-2.99-7.71-7-8.77z"/></svg>
+    <svg class="icon-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 8v2.18l2.45 2.45c.03-.2.05-.42.05-.63zM19 12c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89 1.03 5 3.76 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>
+  </button>
+  <div class="wrap hero-content">
+    <p class="hero-eyebrow" data-en="Tanzania, on your terms" data-sw="Tanzania, kwa masharti yako">Tanzania, on your terms</p>
+    <h1 data-en="Trips built around<br>the moments you'll<br>tell stories about." data-sw="Safari zilizopangwa kuzunguka<br>nyakati utakazokuwa<br>ukizisimulia kwa hadithi.">Trips built around<br>the moments you'll<br>tell stories about.</h1>
+    <p class="hero-sub" data-en="Bingwa plans safaris, island escapes and treks for travellers who'd rather feel like a guest than a tourist." data-sw="Bingwa hupanga safari za porini, mapumziko visiwani na kupanda milima kwa wasafiri wanaotaka kujisikia kama mgeni maalum, si mtalii wa kawaida.">Bingwa plans safaris, island escapes and treks for travellers who'd rather feel like a guest than a tourist.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/255766967509?text=Hi%20Bingwa%2C%20I%27d%20like%20to%20plan%20a%20trip" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.19.28-.73.92-.9 1.1-.16.19-.33.21-.6.07-.28-.14-1.18-.43-2.24-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 1-1 2.42 0 1.43 1.02 2.82 1.16 3.01.14.19 2 3.05 4.85 4.28.68.29 1.2.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.16-1.34-.07-.12-.26-.19-.54-.33zM12.02 2.2A9.8 9.8 0 0 0 2.2 12a9.7 9.7 0 0 0 1.34 4.95L2 22l5.2-1.5a9.8 9.8 0 0 0 4.82 1.27h.01A9.8 9.8 0 0 0 21.8 12 9.8 9.8 0 0 0 12.02 2.2z"/></svg>
+        <span data-en="Plan my trip on WhatsApp" data-sw="Panga safari yangu WhatsApp">Plan my trip on WhatsApp</span>
+      </a>
+      <a href="#services" class="btn btn-ghost" data-en="See the trips" data-sw="Ona safari">See the trips</a>
+    </div>
+  </div>
+  <div class="hero-scroll" data-en="SCROLL" data-sw="TELEZA">SCROLL</div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-media">
+      <img src="images/img-04.jpg" alt="Bingwa client briefed by her guide at a forest camp on Kilimanjaro" loading="lazy">
+      <div class="frame"></div>
+    </div>
+    <div class="about-copy">
+      <p class="kicker" data-en="Who's behind the trips" data-sw="Nani yuko nyuma ya safari hizi">Who's behind the trips</p>
+      <h2 data-en="One person, one inbox, no call centre." data-sw="Mtu mmoja, ujumbe mmoja, hakuna call centre.">One person, one inbox, no call centre.</h2>
+      <p data-en="Bingwa — The Trips Organizer — plans every itinerary personally, from a first message to the last airport transfer. Every route is built around who you're travelling with, what you can't miss, and what you'd rather skip." data-sw="Bingwa — The Trips Organizer — hupanga kila ratiba ya safari kibinafsi, kuanzia ujumbe wa kwanza hadi usafiri wa mwisho uwanja wa ndege. Kila njia inapangwa kulingana na unasafiri na nani, usichotaka kukikosa, na unachotaka kukiacha.">Bingwa — The Trips Organizer — plans every itinerary personally, from a first message to the last airport transfer. Every route is built around who you're travelling with, what you can't miss, and what you'd rather skip.</p>
+      <p data-en="Based in Tanzania and working directly with trusted drivers, guides, lodges and boat operators across the country, so what you're quoted is what you get on the ground." data-sw="Tuko Tanzania na tunafanya kazi moja kwa moja na madereva, waongoza watalii, malodge na wamiliki wa boti tunaowaamini kote nchini, hivyo bei unayopewa ndiyo hasa unayolipia huko uwanjani.">Based in Tanzania and working directly with trusted drivers, guides, lodges and boat operators across the country, so what you're quoted is what you get on the ground.</p>
+      <div class="about-stats">
+        <div><strong>3+</strong><span data-en="Regions covered" data-sw="Mikoa tunayofanyia kazi">Regions covered</span></div>
+        <div><strong>1:1</strong><span data-en="Trips planned personally" data-sw="Safari zilizopangwa binafsi">Trips planned personally</span></div>
+        <div><strong>24/7</strong><span data-en="WhatsApp support on trip" data-sw="Msaada wa WhatsApp safarini">WhatsApp support on trip</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-en="Where Bingwa takes you" data-sw="Bingwa inakupeleka wapi">Where Bingwa takes you</h2>
+      <p><span class="section-num" data-en="Four routes," data-sw="Njia nne,">Four routes,</span> <span data-en="each one built to order rather than sold off a shelf." data-sw="kila moja imepangwa maalum kwa ajili yako, siyo kifurushi cha kawaida.">each one built to order rather than sold off a shelf.</span></p>
+    </div>
+
+    <div class="service-row">
+      <div class="service-media">
+        <img src="https://images.unsplash.com/photo-1547970810-dc1eac37d174?w=900&h=700&fit=crop&q=80" alt="Lion resting in the Serengeti grass" loading="lazy">
+      </div>
+      <div class="service-copy">
+        <p class="service-index" data-en="Safari" data-sw="Safari ya Porini">Safari</p>
+        <h3 data-en="Serengeti &amp; Ngorongoro game drives" data-sw="Ziara za wanyamapori Serengeti na Ngorongoro">Serengeti &amp; Ngorongoro game drives</h3>
+        <p data-en="Dawn departures, patient drivers, and routes planned around where the migration actually is that week — not a fixed loop." data-sw="Kuondoka alfajiri, madereva wenye subira, na njia zilizopangwa kulingana na uhamiaji wa wanyama ulipo wiki hiyo — si mzunguko wa kudumu.">Dawn departures, patient drivers, and routes planned around where the migration actually is that week — not a fixed loop.</p>
+        <div class="service-tags"><span data-en="3–7 days" data-sw="Siku 3–7">3–7 days</span><span data-en="4x4 &amp; guide" data-sw="Gari la 4x4 na kiongozi">4x4 &amp; guide</span><span data-en="Lodge or camp" data-sw="Lodge au kambi">Lodge or camp</span></div>
+        <a href="https://wa.me/255766967509?text=Hi%20Bingwa%2C%20I%27d%20like%20details%20on%20a%20Safari%20trip" class="service-link" target="_blank" rel="noopener" data-en="Ask about this trip" data-sw="Uliza kuhusu safari hii">Ask about this trip
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-media">
+        <img src="images/img-02.jpg" alt="Turquoise waters off the coast of Zanzibar" loading="lazy">
+      </div>
+      <div class="service-copy">
+        <p class="service-index" data-en="Coast" data-sw="Pwani">Coast</p>
+        <h3 data-en="Zanzibar &amp; island escapes" data-sw="Zanzibar na mapumziko visiwani">Zanzibar &amp; island escapes</h3>
+        <p data-en="Stone Town's alleys, a spice tour, and enough beach time on Nungwi or Paje to actually switch off." data-sw="Vichochoro vya Mji Mkongwe, ziara ya viungo, na muda wa kutosha ufukweni Nungwi au Paje kupumzika kikamilifu.">Stone Town's alleys, a spice tour, and enough beach time on Nungwi or Paje to actually switch off.</p>
+        <div class="service-tags"><span data-en="2–5 days" data-sw="Siku 2–5">2–5 days</span><span data-en="Ferry or flight" data-sw="Kivuko au ndege">Ferry or flight</span><span data-en="Beach stays" data-sw="Kukaa ufukweni">Beach stays</span></div>
+        <a href="https://wa.me/255766967509?text=Hi%20Bingwa%2C%20I%27d%20like%20details%20on%20a%20Zanzibar%20trip" class="service-link" target="_blank" rel="noopener" data-en="Ask about this trip" data-sw="Uliza kuhusu safari hii">Ask about this trip
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-media">
+        <img src="images/img-02.jpg" alt="Climber and guide celebrating at sunrise near Kilimanjaro's summit" loading="lazy">
+      </div>
+      <div class="service-copy">
+        <p class="service-index" data-en="Trek" data-sw="Kupanda Mlima">Trek</p>
+        <h3 data-en="Kilimanjaro climbs" data-sw="Kupanda Mlima Kilimanjaro">Kilimanjaro climbs</h3>
+        <p data-en="Route choice matched to your fitness and timeline, with a crew that plans for altitude, not just distance." data-sw="Njia inayochaguliwa kulingana na uwezo wako wa kimwili na muda wako, ikiwa na wafanyakazi wanaopanga kwa ajili ya kimo, siyo umbali tu.">Route choice matched to your fitness and timeline, with a crew that plans for altitude, not just distance.</p>
+        <div class="service-tags"><span data-en="5–8 days" data-sw="Siku 5–8">5–8 days</span><span data-en="Certified crew" data-sw="Wafanyakazi waliothibitishwa">Certified crew</span><span data-en="All gear briefing" data-sw="Maelekezo ya vifaa vyote">All gear briefing</span></div>
+        <a href="https://wa.me/255766967509?text=Hi%20Bingwa%2C%20I%27d%20like%20details%20on%20a%20Kilimanjaro%20climb" class="service-link" target="_blank" rel="noopener" data-en="Ask about this trip" data-sw="Uliza kuhusu safari hii">Ask about this trip
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-media">
+        <img src="images/img-02.jpg" alt="Local market scene in Tanzania" loading="lazy">
+      </div>
+      <div class="service-copy">
+        <p class="service-index" data-en="Culture" data-sw="Utamaduni">Culture</p>
+        <h3 data-en="City &amp; village day trips" data-sw="Ziara za siku mjini na vijijini">City &amp; village day trips</h3>
+        <p data-en="Markets, workshops and a meal with a local family — for the days between the big-ticket stops, or a short trip on its own." data-sw="Masoko, karakana za kazi za mikono, na mlo pamoja na familia ya kienyeji — kwa siku za katikati ya safari kubwa, au kama safari fupi peke yake.">Markets, workshops and a meal with a local family — for the days between the big-ticket stops, or a short trip on its own.</p>
+        <div class="service-tags"><span data-en="Half or full day" data-sw="Nusu siku au siku nzima">Half or full day</span><span data-en="Local guide" data-sw="Kiongozi wa kienyeji">Local guide</span><span data-en="Small groups" data-sw="Vikundi vidogo">Small groups</span></div>
+        <a href="https://wa.me/255766967509?text=Hi%20Bingwa%2C%20I%27d%20like%20details%20on%20a%20city%20day%20trip" class="service-link" target="_blank" rel="noopener" data-en="Ask about this trip" data-sw="Uliza kuhusu safari hii">Ask about this trip
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-en="From the trail" data-sw="Kutoka safarini">From the trail</h2>
+      <p data-en="A few frames from recent trips — follow along for the rest on Instagram and TikTok." data-sw="Picha chache kutoka safari za hivi karibuni — fuatilia zaidi kwenye Instagram na TikTok.">A few frames from recent trips — follow along for the rest on Instagram and TikTok.</p>
+    </div>
+    <div class="gallery-grid">
+      <a class="g1" href="https://www.instagram.com/bingwa.thetrips_organizer/" target="_blank" rel="noopener"><img src="images/img-05.jpg" alt="Climbers at the Uhuru Peak summit sign at sunrise" loading="lazy" onerror="this.classList.add('img-missing'); this.alt=this.alt+' (picha haikupatikana: '+this.getAttribute('src')+')'; this.removeAttribute('src');"></a>
+      <a class="g2" href="https://www.instagram.com/bingwa.thetrips_organizer/" target="_blank" rel="noopener"><img src="images/img-12.jpg" alt="Climbers hiking a rocky scree slope on Kilimanjaro" loading="lazy" onerror="this.classList.add('img-missing'); this.alt=this.alt+' (picha haikupatikana: '+this.getAttribute('src')+')'; this.removeAttribute('src');"></a>
+      <a class="g3" href="https://www.instagram.com/bingwa.thetrips_organizer/" target="_blank" rel="noopener"><img src="images/img-05.jpg" alt="Climber and guide at the Karanga Camp signpost" loading="lazy" onerror="this.classList.add('img-missing'); this.alt=this.alt+' (picha haikupatikana: '+this.getAttribute('src')+')'; this.removeAttribute('src');"></a>
+      <a class="g4" href="https://www.instagram.com/bingwa.thetrips_organizer/" target="_blank" rel="noopener"><img src="images/img-11.jpg" alt="Bingwa Champion banner at Mti Mkubwa Camp, Kilimanjaro" loading="lazy" onerror="this.classList.add('img-missing'); this.alt=this.alt+' (picha haikupatikana: '+this.getAttribute('src')+')'; this.removeAttribute('src');"></a>
+      <a class="g5" href="https://www.instagram.com/bingwa.thetrips_organizer/" target="_blank" rel="noopener"><img src="images/img-03.jpg" alt="Bingwa Champion banner at Barafu Camp with Kilimanjaro summit behind" loading="lazy" onerror="this.classList.add('img-missing'); this.alt=this.alt+' (picha haikupatikana: '+this.getAttribute('src')+')'; this.removeAttribute('src');"></a>
+      <a class="g6" href="https://www.instagram.com/bingwa.thetrips_organizer/" target="_blank" rel="noopener"><img src="images/img-08.jpg" alt="Congratulations and Bon Voyage sign at the Kilimanjaro National Park gate" loading="lazy" onerror="this.classList.add('img-missing'); this.alt=this.alt+' (picha haikupatikana: '+this.getAttribute('src')+')'; this.removeAttribute('src');"></a>
+    </div>
+  </div>
+</section>
+
+<section class="vivutio" id="vivutio">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-en="Tourist Attractions" data-sw="Vivutio vya Utalii">Vivutio vya Utalii</h2>
+      <p><span class="section-num" data-en="From the mountains to the coast —" data-sw="Kutoka milimani hadi baharini —">Kutoka milimani hadi baharini —</span> <span data-en="these are the main destinations we work in." data-sw="haya ndiyo maeneo makuu tunayofanyia kazi.">haya ndiyo maeneo makuu tunayofanyia kazi.</span></p>
+    </div>
+    <p class="vivutio-intro" data-en="Bingwa plans trips to these historic and natural destinations across Tanzania and the Great Lakes region. Each place has something unique of its own — from the great wildebeest migration to the beaches of Zanzibar and rural waterfalls." data-sw="Bingwa hupanga safari kwenda maeneo haya ya kihistoria na ya kiasili kote Tanzania na ukanda wa Maziwa Makuu. Kila mahali pana kitu chake cha kipekee — kutoka kwenye uhamiaji mkubwa wa nyumbu hadi fukwe za Zanzibar na maporomoko ya maji ya vijijini.">Bingwa hupanga safari kwenda maeneo haya ya kihistoria na ya kiasili kote Tanzania na ukanda wa Maziwa Makuu. Kila mahali pana kitu chake cha kipekee — kutoka kwenye uhamiaji mkubwa wa nyumbu hadi fukwe za Zanzibar na maporomoko ya maji ya vijijini.</p>
+
+    <div class="vivutio-grid">
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wildebeest_Migration_in_Serengeti_National_Park,_Tanzania.jpg?width=700" alt="Uhamiaji wa nyumbu Serengeti" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="National Park" data-sw="Hifadhi ya Taifa">Hifadhi ya Taifa</span>
+          <h3>Serengeti</h3>
+          <p data-en="Endless plains and the greatest wildlife migration on earth — Tanzania's number one safari destination." data-sw="Nyanda zisizo na mwisho na uhamiaji mkubwa wa wanyama duniani — kivutio namba moja cha safari Tanzania.">Nyanda zisizo na mwisho na uhamiaji mkubwa wa wanyama duniani — kivutio namba moja cha safari Tanzania.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ngorongoro_Crater.jpg?width=700" alt="Bonde la Ngorongoro" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="Ngorongoro Conservation Area" data-sw="Hifadhi ya Ngorongoro">Hifadhi ya Ngorongoro</span>
+          <h3>Ngorongoro</h3>
+          <p data-en="A vast volcanic crater packed with wildlife, including the Big Five, set in stunning scenery." data-sw="Bonde kubwa la volkano lenye wanyamapori wengi wakiwemo Big Five, ndani ya mandhari ya ajabu.">Bonde kubwa la volkano lenye wanyamapori wengi wakiwemo Big Five, ndani ya mandhari ya ajabu.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kilimanjaro_national_park_tanzania.jpg?width=700" alt="Mlima Kilimanjaro" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="Africa's Tallest Mountain" data-sw="Mlima Mrefu Afrika">Mlima Mrefu Afrika</span>
+          <h3>Kilimanjaro</h3>
+          <p data-en="The tallest mountain in all of Africa — a challenge and a lifetime memory for climbers." data-sw="Mlima mrefu kuliko yote barani Afrika — changamoto na kumbukumbu ya maisha kwa wapandaji.">Mlima mrefu kuliko yote barani Afrika — changamoto na kumbukumbu ya maisha kwa wapandaji.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Baobab_and_elephant_Tanzania_-_modified.jpg?width=700" alt="Tembo na mbuyu Tarangire" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="National Park" data-sw="Hifadhi ya Taifa">Hifadhi ya Taifa</span>
+          <h3>Tarangire</h3>
+          <p data-en="Famous for its large elephant herds and giant baobab trees with striking shapes." data-sw="Maarufu kwa idadi kubwa ya tembo na miti mikubwa ya mibuyu yenye maumbo ya kipekee.">Maarufu kwa idadi kubwa ya tembo na miti mikubwa ya mibuyu yenye maumbo ya kipekee.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lake_Manyara_National_Park_(11)_(28503184931).jpg?width=700" alt="Hifadhi ya Ziwa Manyara" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="National Park" data-sw="Hifadhi ya Taifa">Hifadhi ya Taifa</span>
+          <h3>Ziwa Manyara</h3>
+          <p data-en="A lake with abundant flamingos, forests and large troops of baboons — a birdwatcher's paradise." data-sw="Ziwa lenye flamingo wengi, misitu na mkusanyiko mkubwa wa nyani — paradiso ya ndege.">Ziwa lenye flamingo wengi, misitu na mkusanyiko mkubwa wa nyani — paradiso ya ndege.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Zebra_in_Mikumi.JPG?width=700" alt="Punda milia Mikumi" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="National Park" data-sw="Hifadhi ya Taifa">Hifadhi ya Taifa</span>
+          <h3>Mikumi</h3>
+          <p data-en="Close to Dar es Salaam, known for tree-climbing lions and open savannah scenery." data-sw="Karibu na Dar es Salaam, maarufu kwa simba wanaopanda miti na mandhari ya wazi.">Karibu na Dar es Salaam, maarufu kwa simba wanaopanda miti na mandhari ya wazi.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Selous_Game_Reserve-Girraffes-2.jpg?width=700" alt="Hifadhi ya Selous / Nyerere" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="National Park" data-sw="Hifadhi ya Taifa">Hifadhi ya Taifa</span>
+          <h3>Selous (Nyerere)</h3>
+          <p data-en="Tanzania's largest reserve, home to the Rufiji River and a wide variety of wildlife." data-sw="Hifadhi kubwa kuliko zote Tanzania, yenye Mto Rufiji na wanyamapori wa aina nyingi.">Hifadhi kubwa kuliko zote Tanzania, yenye Mto Rufiji na wanyamapori wa aina nyingi.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Chimps_in_Gombe.jpg?width=700" alt="Sokwe Gombe" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="National Park" data-sw="Hifadhi ya Taifa">Hifadhi ya Taifa</span>
+          <h3>Gombe</h3>
+          <p data-en="Home to wild chimpanzees and where Dr. Jane Goodall carried out her research, on the shores of Lake Tanganyika." data-sw="Nyumbani kwa sokwe mtu na mahali alipofanyia utafiti Dkt. Jane Goodall, kando ya Ziwa Tanganyika.">Nyumbani kwa sokwe mtu na mahali alipofanyia utafiti Dkt. Jane Goodall, kando ya Ziwa Tanganyika.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Welcome_to_Rubondo_Island_National_Park.jpg?width=700" alt="Kisiwa cha Rubondo" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="Island, Lake Victoria" data-sw="Kisiwa, Ziwa Victoria">Kisiwa, Ziwa Victoria</span>
+          <h3>Rubondo</h3>
+          <p data-en="A green island in Lake Victoria, offering privacy for spotting hippos and birdlife." data-sw="Kisiwa cha kijani ndani ya Ziwa Victoria, kwa faragha ya kutazama viboko na ndege.">Kisiwa cha kijani ndani ya Ziwa Victoria, kwa faragha ya kutazama viboko na ndege.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bismarck_Rock_Mwanza.jpg?width=700" alt="Saa Nane Mwanza" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="Island, Mwanza" data-sw="Kisiwa, Mwanza">Kisiwa, Mwanza</span>
+          <h3>Saa Nane</h3>
+          <p data-en="Tanzania's smallest park, inside the city of Mwanza near the famous Bismarck Rock." data-sw="Hifadhi ndogo kabisa Tanzania, ndani ya jiji la Mwanza karibu na mawe maarufu ya Bismarck.">Hifadhi ndogo kabisa Tanzania, ndani ya jiji la Mwanza karibu na mawe maarufu ya Bismarck.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/White_sandy_beach_at_Nungwi,_Zanzibar.jpg?width=700" alt="Fukwe za Zanzibar" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="The Spice Island" data-sw="Kisiwa cha Viungo">Kisiwa cha Viungo</span>
+          <h3>Zanzibar</h3>
+          <p data-en="Stone Town, spice tours and the white beaches of Nungwi and Paje — the perfect getaway." data-sw="Mji Mkongwe, ziara za viungo na fukwe nyeupe za Nungwi na Paje — mapumziko kamili.">Mji Mkongwe, ziara za viungo na fukwe nyeupe za Nungwi na Paje — mapumziko kamili.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wildebeest_Migration_Masai_mara.jpg?width=700" alt="Masai Mara Kenya" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="Kenya" data-sw="Kenya">Kenya</span>
+          <h3>Masai Mara</h3>
+          <p data-en="The Kenyan continuation of the Serengeti ecosystem, famous for the Mara River crossings." data-sw="Mwendelezo wa mfumo wa ikolojia wa Serengeti upande wa Kenya, maarufu kwa uvukaji wa Mto Mara.">Mwendelezo wa mfumo wa ikolojia wa Serengeti upande wa Kenya, maarufu kwa uvukaji wa Mto Mara.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Uganda_Equator_(Kayabwe).jpg?width=700" alt="Ikweta Uganda" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="Uganda" data-sw="Uganda">Uganda</span>
+          <h3 data-en="The Equator (Uganda)" data-sw="Ikweta (Uganda)">Ikweta (Uganda)</h3>
+          <p data-en="Stand right on the equator line — one foot in the Northern Hemisphere, one in the Southern." data-sw="Simama kwenye mstari wa ikweta — mguu mmoja Kaskazini, mwingine Kusini mwa dunia.">Simama kwenye mstari wa ikweta — mguu mmoja Kaskazini, mwingine Kusini mwa dunia.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Rusumofalls.jpg?width=700" alt="Maporomoko ya Rusumo" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="Tanzania–Rwanda Border" data-sw="Mpaka Tanzania–Rwanda">Mpaka Tanzania–Rwanda</span>
+          <h3 data-en="Rusumo Falls" data-sw="Maporomoko ya Rusumo">Maporomoko ya Rusumo</h3>
+          <p data-en="Waterfalls on the Kagera River at the border of Tanzania and Rwanda, with a long regional history." data-sw="Maporomoko ya Mto Kagera kwenye mpaka wa Tanzania na Rwanda, yenye historia ndefu ya kikanda.">Maporomoko ya Mto Kagera kwenye mpaka wa Tanzania na Rwanda, yenye historia ndefu ya kikanda.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Waterfalls_in_Morogoro.jpg?width=700" alt="Maporomoko ya Bugonzi Muleba" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="Muleba District, Kagera" data-sw="Wilaya ya Muleba, Kagera">Wilaya ya Muleba, Kagera</span>
+          <h3 data-en="Bugonzi Waterfalls" data-sw="Maporomoko ya Bugonzi">Maporomoko ya Bugonzi</h3>
+          <p data-en="A natural waterfall in Kamachumu, Muleba District — a lesser-known gem of the Kagera region." data-sw="Maporomoko ya asili yaliyopo Kamachumu, Wilaya ya Muleba — kito kisichojulikana sana cha mkoa wa Kagera.">Maporomoko ya asili yaliyopo Kamachumu, Wilaya ya Muleba — kito kisichojulikana sana cha mkoa wa Kagera.</p>
+        </div>
+      </div>
+
+      <div class="viv-card">
+        <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Materuni_Falls,_Uru_mashariki.jpg?width=700" alt="Maporomoko ya Kyamunene" loading="lazy"></div>
+        <div class="viv-body">
+          <span class="viv-tag" data-en="Bukoba, Kagera" data-sw="Bukoba, Kagera">Bukoba, Kagera</span>
+          <h3>Kyamunene Waterfalls</h3>
+          <p data-en="Caves and waterfalls near Bukoba, surrounded by lush natural greenery." data-sw="Mapango na maporomoko ya maji karibu na Bukoba, yamezungukwa na kijani kibichi cha asili.">Mapango na maporomoko ya maji karibu na Bukoba, yamezungukwa na kijani kibichi cha asili.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="viv-pick-note">
+      <p data-en="&lt;strong&gt;Why choose Bingwa — The Trips Organizer, and not another company?&lt;/strong&gt; Because your trip is planned by one person, directly, from your first WhatsApp message to the day you fly home — no call centre, no being passed between agents. We work directly with drivers, guides, lodges and boat owners we trust, so the price you're quoted is exactly what you pay on the ground, with no hidden extra costs. Itineraries are planned around you personally — not a ready-made package — and we're with you on WhatsApp 24/7 during your trip, ready to help with anything that comes up along the way." data-sw="&lt;strong&gt;Kwa nini uchague Bingwa — The Trips Organizer, na siyo kampuni nyingine?&lt;/strong&gt; Kwa sababu safari yako inapangwa na mtu mmoja moja kwa moja, kuanzia ujumbe wa kwanza WhatsApp hadi siku unaporudi uwanja wa ndege — hakuna call centre wala kupitishwa kwa mawakala wengi. Tunafanya kazi moja kwa moja na madereva, waongoza watalii, malodge na wamiliki wa boti tunaowaamini, hivyo bei unayopewa ndiyo hasa unayolipia huko uwanjani, bila gharama za ziada zilizofichwa. Ratiba za safari zinapangwa kulingana na wewe binafsi — siyo kifurushi kilichowekwa tayari — na tuko karibu nawe WhatsApp saa 24/7 wakati wa safari yako, tayari kukusaidia chochote kitakachotokea njiani."><strong>Kwa nini uchague Bingwa — The Trips Organizer, na siyo kampuni nyingine?</strong> Kwa sababu safari yako inapangwa na mtu mmoja moja kwa moja, kuanzia ujumbe wa kwanza WhatsApp hadi siku unaporudi uwanja wa ndege — hakuna call centre wala kupitishwa kwa mawakala wengi. Tunafanya kazi moja kwa moja na madereva, waongoza watalii, malodge na wamiliki wa boti tunaowaamini, hivyo bei unayopewa ndiyo hasa unayolipia huko uwanjani, bila gharama za ziada zilizofichwa. Ratiba za safari zinapangwa kulingana na wewe binafsi — siyo kifurushi kilichowekwa tayari — na tuko karibu nawe WhatsApp saa 24/7 wakati wa safari yako, tayari kukusaidia chochote kitakachotokea njiani.</p>
+    </div>
+
+    <div class="viv-areas">
+      <h4 data-en="Areas we work in" data-sw="Maeneo tunayofanyia kazi">Maeneo tunayofanyia kazi</h4>
+      <div class="viv-pills">
+        <span>Rubondo</span><span>Gombe</span><span>Serengeti</span><span>Ngorongoro</span>
+        <span>Kilimanjaro</span><span>Tarangire</span><span>Saa Nane</span><span>Mikumi</span>
+        <span>Zanzibar</span><span>Ziwa Manyara</span><span>Selous / Nyerere</span>
+        <span>Maporomoko ya Bugonzi (Muleba)</span><span>Maporomoko ya Rusumo</span>
+        <span>Ikweta (Uganda)</span><span>Masai Mara (Kenya)</span><span>Kyamunene Waterfalls</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2 data-en="Tell Bingwa where you'd like to end up — the plan comes back to you." data-sw="Mwambie Bingwa unataka kuishia wapi — mpango utarudi kwako.">Tell Bingwa where you'd like to end up — the plan comes back to you.</h2>
+    <p data-en="Message directly on WhatsApp with your dates and headcount, and get a route back the same day." data-sw="Tuma ujumbe moja kwa moja WhatsApp ukiwa na tarehe na idadi ya watu, na upate mpango siku hiyo hiyo.">Message directly on WhatsApp with your dates and headcount, and get a route back the same day.</p>
+    <div class="contact-actions">
+      <a href="https://wa.me/255766967509?text=Hi%20Bingwa%2C%20I%27d%20like%20to%20plan%20a%20trip" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.19.28-.73.92-.9 1.1-.16.19-.33.21-.6.07-.28-.14-1.18-.43-2.24-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 1-1 2.42 0 1.43 1.02 2.82 1.16 3.01.14.19 2 3.05 4.85 4.28.68.29 1.2.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.16-1.34-.07-.12-.26-.19-.54-.33zM12.02 2.2A9.8 9.8 0 0 0 2.2 12a9.7 9.7 0 0 0 1.34 4.95L2 22l5.2-1.5a9.8 9.8 0 0 0 4.82 1.27h.01A9.8 9.8 0 0 0 21.8 12 9.8 9.8 0 0 0 12.02 2.2z"/></svg>
+        +255 766 967 509
+      </a>
+      <a href="tel:+255766967509" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2z"/></svg>
+        <span data-en="Call" data-sw="Piga simu">Call</span>
+      </a>
+    </div>
+    <div class="social-row">
+      <a class="social-pill" href="https://www.instagram.com/bingwa.thetrips_organizer/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45 2.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.28 2 12 2zm0 1.8c-2.67 0-2.99.01-4.04.06-.87.04-1.34.18-1.65.3-.42.16-.71.35-1.02.66-.31.31-.5.6-.66 1.02-.12.31-.26.78-.3 1.65C4.28 9.01 4.27 9.33 4.27 12s.01 2.99.06 4.04c.04.87.18 1.34.3 1.65.16.42.35.71.66 1.02.31.31.6.5 1.02.66.31.12.78.26 1.65.3 1.05.05 1.37.06 4.04.06s2.99-.01 4.04-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.35 1.02-.66.31-.31.5-.6.66-1.02.12-.31.26-.78.3-1.65.05-1.05.06-1.37.06-4.04s-.01-2.99-.06-4.04c-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.66-1.02 2.75 2.75 0 0 0-1.02-.66c-.31-.12-.78-.26-1.65-.3C14.99 3.81 14.67 3.8 12 3.8zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68zm5.34-1.98a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg>
+        Instagram
+      </a>
+      <a class="social-pill" href="https://www.tiktok.com/@bingwa.the.trip.o" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M16.6 5.82c-1-.87-1.6-2.13-1.6-3.5h-3.15v13.4a2.9 2.9 0 1 1-2.06-2.78V9.7a6.05 6.05 0 1 0 5.21 6v-6.4a7.8 7.8 0 0 0 4.4 1.36V7.5a4.85 4.85 0 0 1-2.8-1.68z"/></svg>
+        TikTok
+      </a>
+      <a class="social-pill" href="https://www.facebook.com/profile.php?id=61578583855213" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M13.5 21v-8.1h2.72l.41-3.16h-3.13V7.72c0-.92.25-1.54 1.57-1.54h1.68V3.36C15.94 3.25 15 3.18 13.9 3.18c-2.53 0-4.26 1.54-4.26 4.37v2.4H6.9v3.15h2.74V21h3.86z"/></svg>
+        Facebook
+      </a>
+      <a class="social-pill" href="https://wa.me/255766967509" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.19.28-.73.92-.9 1.1-.16.19-.33.21-.6.07-.28-.14-1.18-.43-2.24-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 1-1 2.42 0 1.43 1.02 2.82 1.16 3.01.14.19 2 3.05 4.85 4.28.68.29 1.2.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.16-1.34-.07-.12-.26-.19-.54-.33zM12.02 2.2A9.8 9.8 0 0 0 2.2 12a9.7 9.7 0 0 0 1.34 4.95L2 22l5.2-1.5a9.8 9.8 0 0 0 4.82 1.27h.01A9.8 9.8 0 0 0 21.8 12 9.8 9.8 0 0 0 12.02 2.2z"/></svg>
+        WhatsApp
+      </a>
+      <a class="social-pill" href="mailto:bingwathetriporganizer@gmail.com">
+        <svg viewBox="0 0 24 24"><path d="M2 5.5C2 4.67 2.67 4 3.5 4h17c.83 0 1.5.67 1.5 1.5v13c0 .83-.67 1.5-1.5 1.5h-17c-.83 0-1.5-.67-1.5-1.5v-13zm2.2.4 7.3 5.84c.29.23.71.23 1 0l7.3-5.84H4.2zM4 8.1V18h16V8.1l-7.06 5.65a2.5 2.5 0 0 1-3.12 0L4 8.1z"/></svg>
+        bingwathetriporganizer@gmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Bingwa — The Trips Organizer. Tanzania.</span>
+    <span style="display:flex; gap:18px; flex-wrap:wrap;">
+      <a href="https://wa.me/255766967509">+255 766 967 509</a>
+      <a href="mailto:bingwathetriporganizer@gmail.com">bingwathetriporganizer@gmail.com</a>
+    </span>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/255766967509?text=Hi%20Bingwa%2C%20I%27d%20like%20to%20plan%20a%20trip" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.19.28-.73.92-.9 1.1-.16.19-.33.21-.6.07-.28-.14-1.18-.43-2.24-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 1-1 2.42 0 1.43 1.02 2.82 1.16 3.01.14.19 2 3.05 4.85 4.28.68.29 1.2.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.16-1.34-.07-.12-.26-.19-.54-.33zM12.02 2.2A9.8 9.8 0 0 0 2.2 12a9.7 9.7 0 0 0 1.34 4.95L2 22l5.2-1.5a9.8 9.8 0 0 0 4.82 1.27h.01A9.8 9.8 0 0 0 21.8 12 9.8 9.8 0 0 0 12.02 2.2zm5.7 15.5a8.13 8.13 0 0 1-5.7 2.37 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.9.9-3-.2-.31A8.15 8.15 0 1 1 17.72 17.7z"/></svg>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---- Language switch (English / Kiswahili) ---- */
+  const i18nEls = document.querySelectorAll('[data-en]');
+  const ariaEls = document.querySelectorAll('[data-en-aria]');
+  const langBtns = document.querySelectorAll('.lang-btn');
+  const htmlRoot = document.getElementById('htmlRoot');
+
+  function setLang(lang){
+    i18nEls.forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (val !== null) el.innerHTML = val;
+    });
+    ariaEls.forEach(el => {
+      const val = el.getAttribute('data-' + lang + '-aria');
+      if (val !== null) el.setAttribute('aria-label', val);
+    });
+    langBtns.forEach(b => {
+      const isActive = b.dataset.lang === lang;
+      b.classList.toggle('active', isActive);
+      b.setAttribute('aria-pressed', String(isActive));
+    });
+    if (htmlRoot) htmlRoot.lang = lang;
+    try { localStorage.setItem('bingwaLang', lang); } catch(e) {}
+  }
+
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+
+  let savedLang = 'en';
+  try { savedLang = localStorage.getItem('bingwaLang') || 'en'; } catch(e) {}
+  setLang(savedLang);
+
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  /* ---- Forest bird ambience on the hero/welcome screen ---- */
+  const bird = document.getElementById('heroBirdSound');
+  const soundToggle = document.getElementById('soundToggle');
+  const heroSection = document.getElementById('top');
+  bird.volume = 0.5;
+
+  let userMuted = false;      // user pressed the toggle to turn it off
+  let heroInView = false;     // is the welcome screen currently visible
+  let unlocked = false;       // has the browser allowed audio to play yet
+
+  function updateToggleUI(){
+    soundToggle.setAttribute('aria-pressed', String(!bird.paused));
+  }
+
+  function tryPlay(){
+    if (userMuted || !heroInView) return;
+    bird.play().then(() => { unlocked = true; updateToggleUI(); }).catch(() => { /* blocked until user interacts */ });
+  }
+
+  // Browsers block audio-with-sound until the user has interacted with the page,
+  // so attempt playback on load, and again on the first tap/click/scroll.
+  window.addEventListener('load', tryPlay);
+  ['pointerdown', 'keydown', 'scroll'].forEach(evt => {
+    window.addEventListener(evt, () => { if (!unlocked) tryPlay(); }, { once: true, passive: true });
+  });
+
+  if ('IntersectionObserver' in window) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        heroInView = entry.isIntersecting;
+        if (heroInView) {
+          tryPlay();
+        } else {
+          bird.pause();
+        }
+        updateToggleUI();
+      });
+    }, { threshold: 0.35 });
+    heroObserver.observe(heroSection);
+  } else {
+    heroInView = true;
+    tryPlay();
+  }
+
+  soundToggle.addEventListener('click', () => {
+    if (bird.paused) {
+      userMuted = false;
+      heroInView = true;
+      bird.play().catch(() => {});
+    } else {
+      userMuted = true;
+      bird.pause();
+    }
+    updateToggleUI();
+  });
+</script>
+
+</body>
+</html>

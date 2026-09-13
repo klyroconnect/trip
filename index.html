@@ -319,6 +319,82 @@
     font-size:0.82rem; padding:8px 16px; border:1px solid rgba(246,239,224,0.25);
     border-radius:999px; color:rgba(246,239,224,0.85);
   }
+  .viv-seo{
+    margin-top:50px; padding-top:36px; border-top:1px solid rgba(246,239,224,0.15);
+    max-width:900px;
+  }
+  .viv-seo h3{ font-size:1.3rem; color:var(--cream-text); margin-bottom:14px; line-height:1.25; }
+  .viv-seo p{ font-size:0.92rem; color:rgba(246,239,224,0.68); line-height:1.7; }
+  .viv-top5{ margin-top:36px; }
+  .viv-top5 h4{ font-family:'Fraunces',serif; font-style:italic; font-weight:500; color:var(--gold); font-size:1.05rem; margin-bottom:16px; }
+  .viv-top5 ol{ list-style:none; counter-reset:top5; display:flex; flex-direction:column; gap:10px; max-width:420px; }
+  .viv-top5 ol li{
+    counter-increment:top5; position:relative; padding:10px 16px 10px 46px;
+    background:rgba(246,239,224,0.05); border:1px solid rgba(246,239,224,0.12);
+    border-radius:4px; color:var(--cream-text); font-size:0.95rem;
+  }
+  .viv-top5 ol li::before{
+    content:counter(top5); position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    color:var(--gold); font-family:'Fraunces',serif; font-style:italic; font-weight:600;
+  }
+  .viv-top5 ol li a{ color:inherit; }
+  .viv-top5 ol li a:hover{ color:var(--gold); }
+  .viv-top5 ol li.has-tip{ cursor:help; }
+  .top5-tip{
+    position:absolute; left:calc(100% + 22px); top:50%; transform:translateY(-50%) translateX(-8px);
+    width:360px; max-width:min(80vw, 380px);
+    background:var(--night-soft); border:1px solid rgba(196,138,60,0.35);
+    border-radius:6px; padding:18px 20px; font-size:0.82rem; line-height:1.65;
+    color:rgba(246,239,224,0.85); font-family:'Work Sans',sans-serif; font-weight:400;
+    text-transform:none; letter-spacing:normal;
+    opacity:0; visibility:hidden; pointer-events:none; z-index:30;
+    box-shadow:0 16px 34px rgba(0,0,0,.45);
+    transition:opacity .2s ease, visibility .2s ease, transform .2s ease;
+  }
+  .top5-tip::before{
+    content:''; position:absolute; right:100%; top:50%; transform:translateY(-50%);
+    border:8px solid transparent; border-right-color:var(--night-soft);
+  }
+  .viv-top5 ol li.has-tip:hover .top5-tip,
+  .viv-top5 ol li.has-tip:focus-within .top5-tip{
+    opacity:1; visibility:visible; transform:translateY(-50%) translateX(0);
+  }
+  @media(max-width:960px){
+    .top5-tip{
+      position:static; transform:none; width:100%; max-width:none;
+      margin-top:10px; box-shadow:none; opacity:0; visibility:hidden; height:0; padding:0;
+      overflow:hidden; border:none;
+    }
+    .top5-tip::before{ display:none; }
+    .viv-top5 ol li.has-tip:hover .top5-tip,
+    .viv-top5 ol li.has-tip:focus-within .top5-tip,
+    .viv-top5 ol li.has-tip.tip-open .top5-tip{
+      opacity:1; visibility:visible; transform:none; height:auto;
+      padding:14px 16px; margin-top:10px; border:1px solid rgba(196,138,60,0.35);
+    }
+  }
+
+  img.img-missing{
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(246,239,224,0.06); border:1px dashed rgba(246,239,224,0.3);
+    color:rgba(246,239,224,0.55); font-family:'Work Sans',sans-serif; font-size:0.78rem;
+    text-align:center; padding:12px; min-height:220px;
+  }
+
+  .top5-detail{ margin-top:44px; }
+  .top5-row{
+    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
+    padding:40px 0; border-bottom:1px solid rgba(246,239,224,0.12);
+  }
+  .top5-row:last-child{ border-bottom:none; }
+  .top5-media img{ width:100%; height:340px; object-fit:cover; border-radius:4px; }
+  .top5-num{ font-family:'Fraunces',serif; font-style:italic; color:var(--gold); font-size:1rem; margin-bottom:14px; display:block; }
+  .top5-copy h3{ font-size:clamp(1.4rem,2.2vw,1.9rem); margin-bottom:14px; color:var(--cream-text); }
+  .top5-copy p{ color:rgba(246,239,224,0.72); line-height:1.7; margin-bottom:20px; font-size:0.92rem; }
+  @media(max-width:860px){
+    .top5-row{ grid-template-columns:1fr; gap:22px; padding:30px 0; }
+    .top5-media img{ height:240px; }
+  }
 
   /* ---------- CONTACT / FOLLOW ---------- */
   .contact{
@@ -754,6 +830,44 @@
         <span>Ikweta (Uganda)</span><span>Masai Mara (Kenya)</span>
       </div>
     </div>
+
+    <div class="viv-seo">
+      <h3 data-en="Top-Best Tanzania Safari Destination(s) For 2026 - 2027: Everything To Know!" data-sw="Maeneo Bora Zaidi ya Safari Tanzania Kwa 2026 - 2027: Kila Kitu Unachopaswa Kujua!">Top-Best Tanzania Safari Destination(s) For 2026 - 2027: Everything To Know!</h3>
+      <p data-en="Explore Tanzania's top wilderness destinations on our Tanzania safari and tours from Arusha, Moshi, Mwanza, Zanzibar, Karatu and Dar es Salaam and experience Serengeti, Ngorongoro, Tarangire and Mikumi. Bingwa the Trip Organizer proudly presents the most complete and top-best Tanzania safari destinations for your 2026 - 2027 adventure. The top and best safari destinations for your tour in this summer are: the Serengeti, Ngorongoro Crater, Tarangire, Manyara, and Mikumi National Parks. Each of these legendary parks for your Tanzania safaris 2026 - 2027 offers a unique and unforgettable wildlife experience, from the endless plains and Great Migration of the Serengeti, to the dramatic landscapes and Big Five encounters inside the Ngorongoro Crater. Tarangire dazzles with its ancient baobabs and large elephant herds, while Lake Manyara captivates with tree-climbing lions and vibrant birdlife. For those seeking a less-crowded but equally stunning adventure, Mikumi National Park provides incredible game viewing across wide, open horizons offering the best Tanzania safari and tours from Zanzibar and Dar es Salaam. With Bingwa the Trip Organizer, explore these top safari destinations, carefully selected to deliver the best of Tanzania's wildlife, landscapes, and cultural richness for your 2026 - 2027 journey." data-sw="Gundua maeneo bora zaidi ya pori la Tanzania kwenye safari na ziara zetu kutoka Arusha, Moshi, Mwanza, Zanzibar, Karatu na Dar es Salaam, na furahia Serengeti, Ngorongoro, Tarangire na Mikumi. Bingwa the Trip Organizer inakuletea kwa fahari maeneo kamili na bora zaidi ya safari Tanzania kwa ajili ya safari yako ya 2026 - 2027. Maeneo bora na makuu ya safari kwa msimu huu ni: Hifadhi za Taifa za Serengeti, Bonde la Ngorongoro, Tarangire, Manyara, na Mikumi. Kila moja ya hifadhi hizi maarufu kwa safari zako za Tanzania 2026 - 2027 hutoa uzoefu wa kipekee na usiosahaulika wa wanyamapori, kuanzia nyanda zisizo na mwisho na Uhamiaji Mkubwa wa Serengeti, hadi mandhari ya kuvutia na mikutano na Big Five ndani ya Bonde la Ngorongoro. Tarangire inavutia kwa mibuyu yake ya kale na makundi makubwa ya tembo, wakati Ziwa Manyara linavutia kwa simba wanaopanda miti na ndege wa aina mbalimbali. Kwa wale wanaotafuta safari isiyo na msongamano mkubwa lakini yenye mvuto sawa, Hifadhi ya Taifa ya Mikumi inatoa fursa nzuri ya kuona wanyamapori katika upeo mpana na wazi, ikitoa safari bora ya Tanzania kutoka Zanzibar na Dar es Salaam. Pamoja na Bingwa the Trip Organizer, gundua maeneo haya bora ya safari, yaliyochaguliwa kwa umakini kukupa uzuri bora wa wanyamapori, mandhari, na utamaduni wa Tanzania kwa ajili ya safari yako ya 2026 - 2027.">Gundua maeneo bora zaidi ya pori la Tanzania kwenye safari na ziara zetu kutoka Arusha, Moshi, Mwanza, Zanzibar, Karatu na Dar es Salaam, na furahia Serengeti, Ngorongoro, Tarangire na Mikumi. Bingwa the Trip Organizer inakuletea kwa fahari maeneo kamili na bora zaidi ya safari Tanzania kwa ajili ya safari yako ya 2026 - 2027. Maeneo bora na makuu ya safari kwa msimu huu ni: Hifadhi za Taifa za Serengeti, Bonde la Ngorongoro, Tarangire, Manyara, na Mikumi. Kila moja ya hifadhi hizi maarufu kwa safari zako za Tanzania 2026 - 2027 hutoa uzoefu wa kipekee na usiosahaulika wa wanyamapori, kuanzia nyanda zisizo na mwisho na Uhamiaji Mkubwa wa Serengeti, hadi mandhari ya kuvutia na mikutano na Big Five ndani ya Bonde la Ngorongoro. Tarangire inavutia kwa mibuyu yake ya kale na makundi makubwa ya tembo, wakati Ziwa Manyara linavutia kwa simba wanaopanda miti na ndege wa aina mbalimbali. Kwa wale wanaotafuta safari isiyo na msongamano mkubwa lakini yenye mvuto sawa, Hifadhi ya Taifa ya Mikumi inatoa fursa nzuri ya kuona wanyamapori katika upeo mpana na wazi, ikitoa safari bora ya Tanzania kutoka Zanzibar na Dar es Salaam. Pamoja na Bingwa the Trip Organizer, gundua maeneo haya bora ya safari, yaliyochaguliwa kwa umakini kukupa uzuri bora wa wanyamapori, mandhari, na utamaduni wa Tanzania kwa ajili ya safari yako ya 2026 - 2027.</p>
+    </div>
+
+    <div class="viv-top5">
+      <h4 data-en="Best 5 Safaris in Tanzania" data-sw="Safari 5 Bora Zaidi Tanzania">Best 5 Safaris in Tanzania</h4>
+      <ol>
+        <li><a href="#serengeti-detail" data-en="Serengeti" data-sw="Serengeti">Serengeti</a></li>
+        <li class="has-tip">
+          <a href="#ngorongoro-detail" data-en="Ngorongoro" data-sw="Ngorongoro">Ngorongoro</a>
+          <div class="top5-tip" role="tooltip" data-en="A Ngorongoro safari tour with unforgettable journey. A Ngorongoro Crater Safari is a World Heritage site, this is the world's largest intact volcanic caldera and a haven for wildlife, including the &quot;Big Five&quot; as lion, leopard, elephant, rhino and buffalo. Ngorongoro Crater is the top-notch safari destination for Big Five safari game drive, it provide easy spotting of animals leading to be the best safari destination in Tanzania. Tanzania is a premier, world-class safari destination, it is known for its stunning landscapes, rich wildlife, and most iconic safari parks in Africa-Tanzania-Arusha. Let see the 5 best and most famous safaris to experience in Tanzania, covering the most complete and iconic safaris in the country." data-sw="Safari ya Bonde la Ngorongoro ni safari isiyosahaulika. Bonde la Ngorongoro ni Tovuti ya Urithi wa Dunia — bonde kubwa kuliko yote duniani la volkano lililobaki kamili, na kimbilio la wanyamapori, wakiwemo &quot;Big Five&quot;: simba, chui, tembo, faru na nyati. Bonde la Ngorongoro ni kivutio bora kabisa cha safari za kuona Big Five, kinatoa fursa rahisi ya kuona wanyama, na hii ndiyo inayolifanya kuwa mojawapo ya maeneo bora zaidi ya safari Tanzania. Tanzania ni kivutio bora cha kimataifa cha safari, kinachojulikana kwa mandhari yake ya ajabu, wanyamapori tele, na hifadhi maarufu zaidi za safari barani Afrika — Tanzania, Arusha. Hebu tuangalie safari 5 bora na maarufu zaidi za kufurahia Tanzania, zinazojumuisha safari kamili na maarufu zaidi nchini.">A Ngorongoro safari tour with unforgettable journey. A Ngorongoro Crater Safari is a World Heritage site, this is the world's largest intact volcanic caldera and a haven for wildlife, including the "Big Five" as lion, leopard, elephant, rhino and buffalo. Ngorongoro Crater is the top-notch safari destination for Big Five safari game drive, it provide easy spotting of animals leading to be the best safari destination in Tanzania. Tanzania is a premier, world-class safari destination, it is known for its stunning landscapes, rich wildlife, and most iconic safari parks in Africa-Tanzania-Arusha. Let see the 5 best and most famous safaris to experience in Tanzania, covering the most complete and iconic safaris in the country.</div>
+        </li>
+        <li><a href="#tarangire-detail" data-en="Tarangire" data-sw="Tarangire">Tarangire</a></li>
+        <li><a href="#manyara-detail" data-en="Lake Manyara" data-sw="Ziwa Manyara">Lake Manyara</a></li>
+        <li><a href="#mikumi-detail" data-en="Mikumi" data-sw="Mikumi">Mikumi</a></li>
+      </ol>
+    </div>
+
+    <div class="top5-detail">
+
+      <div class="top5-row" id="ngorongoro-detail">
+        <div class="top5-media">
+          <!-- TODO: replace with the real Ngorongoro Crater photo once received -->
+          <img src="images/ngorongoro-crater.jpg" alt="Ngorongoro Crater safari, Tanzania" loading="lazy" onerror="this.classList.add('img-missing'); this.alt=this.alt+' (picha haijawekwa bado)'; this.removeAttribute('src');">
+        </div>
+        <div class="top5-copy">
+          <span class="top5-num" data-en="01" data-sw="01">01</span>
+          <h3 data-en="Ngorongoro Crater Safari" data-sw="Safari ya Bonde la Ngorongoro">Ngorongoro Crater Safari</h3>
+          <p data-en="A Ngorongoro safari tour is an unforgettable journey. A Ngorongoro Crater Safari is a World Heritage site — the world's largest intact volcanic caldera and a haven for wildlife, including the &quot;Big Five&quot;: lion, leopard, elephant, rhino and buffalo. Ngorongoro Crater is the top-notch safari destination for Big Five game drives, offering easy spotting of animals that makes it one of the best safari destinations in Tanzania. Tanzania is a premier, world-class safari destination known for its stunning landscapes, rich wildlife, and the most iconic safari parks in Africa — Tanzania, Arusha. Let's look at the 5 best and most famous safaris to experience in Tanzania, covering the most complete and iconic safaris in the country." data-sw="Safari ya Bonde la Ngorongoro ni safari isiyosahaulika. Bonde la Ngorongoro ni Tovuti ya Urithi wa Dunia — bonde kubwa kuliko yote duniani la volkano lililobaki kamili, na kimbilio la wanyamapori, wakiwemo &quot;Big Five&quot;: simba, chui, tembo, faru na nyati. Bonde la Ngorongoro ni kivutio bora kabisa cha safari za kuona Big Five, kinatoa fursa rahisi ya kuona wanyama, na hii ndiyo inayolifanya kuwa mojawapo ya maeneo bora zaidi ya safari Tanzania. Tanzania ni kivutio bora cha kimataifa cha safari, kinachojulikana kwa mandhari yake ya ajabu, wanyamapori tele, na hifadhi maarufu zaidi za safari barani Afrika — Tanzania, Arusha. Hebu tuangalie safari 5 bora na maarufu zaidi za kufurahia Tanzania, zinazojumuisha safari kamili na maarufu zaidi nchini.">Safari ya Bonde la Ngorongoro ni safari isiyosahaulika. Bonde la Ngorongoro ni Tovuti ya Urithi wa Dunia — bonde kubwa kuliko yote duniani la volkano lililobaki kamili, na kimbilio la wanyamapori, wakiwemo &quot;Big Five&quot;: simba, chui, tembo, faru na nyati. Bonde la Ngorongoro ni kivutio bora kabisa cha safari za kuona Big Five, kinatoa fursa rahisi ya kuona wanyama, na hii ndiyo inayolifanya kuwa mojawapo ya maeneo bora zaidi ya safari Tanzania. Tanzania ni kivutio bora cha kimataifa cha safari, kinachojulikana kwa mandhari yake ya ajabu, wanyamapori tele, na hifadhi maarufu zaidi za safari barani Afrika — Tanzania, Arusha. Hebu tuangalie safari 5 bora na maarufu zaidi za kufurahia Tanzania, zinazojumuisha safari kamili na maarufu zaidi nchini.</p>
+          <a href="https://wa.me/255766967509?text=Hi%20Bingwa%2C%20I%27d%20like%20details%20on%20a%20Ngorongoro%20Crater%20safari" class="service-link" target="_blank" rel="noopener" data-en="Ask about this trip" data-sw="Uliza kuhusu safari hii">Ask about this trip
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -909,6 +1023,26 @@
       bird.pause();
     }
     updateToggleUI();
+  });
+
+  // Best 5 Safaris — tap-to-reveal tooltip on touch/mobile
+  document.querySelectorAll('.viv-top5 li.has-tip > a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      if (window.innerWidth <= 960) {
+        const li = link.closest('li.has-tip');
+        const alreadyOpen = li.classList.contains('tip-open');
+        document.querySelectorAll('.viv-top5 li.has-tip.tip-open').forEach(el => el.classList.remove('tip-open'));
+        if (!alreadyOpen) {
+          e.preventDefault();
+          li.classList.add('tip-open');
+        }
+      }
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.viv-top5 li.has-tip')) {
+      document.querySelectorAll('.viv-top5 li.has-tip.tip-open').forEach(el => el.classList.remove('tip-open'));
+    }
   });
 </script>
 

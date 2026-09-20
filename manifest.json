@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "Bingwa — The Trip Organizer",
+  "short_name": "Bingwa",
+  "description": "Hand-planned safaris, Zanzibar escapes and Kilimanjaro treks across Tanzania.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#152018",
+  "theme_color": "#152018",
+  "categories": ["travel"],
+  "lang": "en",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

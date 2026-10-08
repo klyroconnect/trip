@@ -110,6 +110,11 @@
   }
   .hero-media{position:absolute; inset:0; z-index:0;}
   .hero-media img{width:100%; height:100%; object-fit:cover;}
+  .hero-media img.slide{
+    position:absolute; inset:0;
+    opacity:0; transition:opacity 1s ease-in-out;
+  }
+  .hero-media img.slide.active{opacity:1;}
   .hero-media::after{
     content:'';
     position:absolute; inset:0;
@@ -505,7 +510,13 @@
 
 <section class="hero" id="top">
   <div class="hero-media">
-    <img src="images/img-09.jpg" alt="Guide and climber celebrating sunrise at the crater rim on Kilimanjaro" loading="eager">
+    <img class="slide active" src="sliding_images/s_1.jpeg" alt="Bingwa safari 1" loading="eager">
+    <img class="slide" src="sliding_images/s_2.jpeg" alt="Bingwa safari 2" loading="lazy">
+    <img class="slide" src="sliding_images/s_3.jpeg" alt="Bingwa safari 3" loading="lazy">
+    <img class="slide" src="sliding_images/s_4.jpeg" alt="Bingwa safari 4" loading="lazy">
+    <img class="slide" src="sliding_images/s_5.jpeg" alt="Bingwa safari 5" loading="lazy">
+    <img class="slide" src="sliding_images/s_6.jpeg" alt="Bingwa safari 6" loading="lazy">
+    <img class="slide" src="sliding_images/s_7.jpeg" alt="Bingwa safari 7" loading="lazy">
   </div>
   <audio id="heroBirdSound" src="images/forest_bird.mp3" loop preload="auto" autoplay></audio>
   <button type="button" id="soundToggle" class="sound-toggle" aria-label="Toggle forest sound" data-en-aria="Toggle forest sound" data-sw-aria="Washa au zima sauti ya msituni" aria-pressed="false">
@@ -1098,6 +1109,18 @@
       document.querySelectorAll('.viv-top5 li.has-tip.tip-open').forEach(el => el.classList.remove('tip-open'));
     }
   });
+
+  /* ---- Hero sliding images (every 3 seconds) ---- */
+  (function(){
+    const slides = document.querySelectorAll('.hero-media img.slide');
+    if(slides.length < 2) return;
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 3000);
+  })();
 </script>
 
 </body>

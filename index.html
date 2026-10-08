@@ -6,13 +6,6 @@
 <title>Bingwa — The Trip Organizer | Tanzania Safaris &amp; Escapes</title>
 <meta name="description" content="Bingwa, The Trip Organizer — hand-planned safaris, Zanzibar escapes and Kilimanjaro treks across Tanzania.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#152018">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Bingwa">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -323,10 +316,13 @@
   }
   .viv-areas h4{ font-family:'Fraunces',serif; font-style:italic; font-weight:500; color:var(--gold); font-size:1.05rem; margin-bottom:18px; }
   .viv-pills{ display:flex; flex-wrap:wrap; gap:10px; }
-  .viv-pills span{
+  .viv-pills span, .viv-pills a{
     font-size:0.82rem; padding:8px 16px; border:1px solid rgba(246,239,224,0.25);
     border-radius:999px; color:rgba(246,239,224,0.85);
   }
+  .viv-pills a{ transition:background .2s ease, border-color .2s ease, color .2s ease; }
+  .viv-pills a:hover{ border-color:var(--gold); color:var(--gold); background:rgba(196,138,60,0.1); }
+  .viv-card, .top5-row{ scroll-margin-top:90px; }
   .viv-seo{
     margin-top:50px; padding-top:36px; border-top:1px solid rgba(246,239,224,0.15);
     max-width:900px;
@@ -665,7 +661,7 @@
         </div>
       </div>
 
-      <div class="viv-card">
+      <div class="viv-card" id="kilimanjaro-card">
         <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kilimanjaro_national_park_tanzania.jpg?width=700" alt="Mlima Kilimanjaro" loading="lazy"></div>
         <div class="viv-body">
           <span class="viv-tag" data-en="Africa's Tallest Mountain" data-sw="Mlima Mrefu Afrika">Mlima Mrefu Afrika</span>
@@ -729,7 +725,7 @@
         </div>
       </div>
 
-      <div class="viv-card">
+      <div class="viv-card" id="gombe-card">
         <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Chimps_in_Gombe.jpg?width=700" alt="Sokwe Gombe" loading="lazy"></div>
         <div class="viv-body">
           <span class="viv-tag" data-en="National Park" data-sw="Hifadhi ya Taifa">Hifadhi ya Taifa</span>
@@ -745,7 +741,7 @@
         </div>
       </div>
 
-      <div class="viv-card">
+      <div class="viv-card" id="rubondo-card">
         <div class="viv-media"><img src="images/rubondo-hippos.jpg" alt="Kisiwa cha Rubondo" loading="lazy"></div>
         <div class="viv-body">
           <span class="viv-tag" data-en="Island, Lake Victoria" data-sw="Kisiwa, Ziwa Victoria">Kisiwa, Ziwa Victoria</span>
@@ -761,7 +757,7 @@
         </div>
       </div>
 
-      <div class="viv-card">
+      <div class="viv-card" id="zanzibar-card">
         <div class="viv-media"><img src="images/zanzibar-sandbank.jpg" alt="Fukwe za Zanzibar" loading="lazy"></div>
         <div class="viv-body">
           <span class="viv-tag" data-en="The Spice Island" data-sw="Kisiwa cha Viungo">Kisiwa cha Viungo</span>
@@ -777,7 +773,7 @@
         </div>
       </div>
 
-      <div class="viv-card">
+      <div class="viv-card" id="masai-mara-card">
         <div class="viv-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wildebeest_Migration_Masai_mara.jpg?width=700" alt="Masai Mara Kenya" loading="lazy"></div>
         <div class="viv-body">
           <span class="viv-tag" data-en="Kenya" data-sw="Kenya">Kenya</span>
@@ -793,7 +789,7 @@
         </div>
       </div>
 
-      <div class="viv-card">
+      <div class="viv-card" id="equator-card">
         <div class="viv-media"><img src="images/equator-uganda-bingwa.jpg" alt="Ikweta Uganda" loading="lazy"></div>
         <div class="viv-body">
           <span class="viv-tag" data-en="Uganda" data-sw="Uganda">Uganda</span>
@@ -818,10 +814,7 @@
     <div class="viv-areas">
       <h4 data-en="Areas we work in" data-sw="Maeneo tunayofanyia kazi">Maeneo tunayofanyia kazi</h4>
       <div class="viv-pills">
-        <span>Rubondo</span><span>Gombe</span><span>Serengeti</span><span>Ngorongoro</span>
-        <span>Kilimanjaro Mountain</span><span>Tarangire</span><span>Mikumi</span>
-        <span>Zanzibar</span><span>Ziwa Manyara</span>
-        <span>Ikweta (Uganda)</span><span>Masai Mara (Kenya)</span>
+        <a href="#rubondo-card">Rubondo</a><a href="#gombe-card">Gombe</a><a href="#serengeti-detail">Serengeti</a><a href="#ngorongoro-detail">Ngorongoro</a><a href="#kilimanjaro-card">Kilimanjaro Mountain</a><a href="#tarangire-detail">Tarangire</a><a href="#mikumi-detail">Mikumi</a><a href="#zanzibar-card">Zanzibar</a><a href="#manyara-detail">Ziwa Manyara</a><a href="#equator-card">The Equator (Uganda)</a><a href="#masai-mara-card">Masai Mara (Kenya)</a>
       </div>
     </div>
 
@@ -1107,13 +1100,5 @@
   });
 </script>
 
-<script>
-  // Register the service worker so the site can be installed as an app
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function () {});
-    });
-  }
-</script>
 </body>
 </html>
